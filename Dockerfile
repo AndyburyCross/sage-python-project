@@ -4,5 +4,6 @@ COPY . /app
 RUN sage -python -m pip install --no-cache-dir \
     numpy \
     scipy \
+    itertools \
     matplotlib
 CMD ["sage", "-python", "src/main.py"]
