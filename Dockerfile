@@ -1,4 +1,4 @@
-FROM sagemath/sagemath:latest
+FROM --platform=linux/amd64 sagemath/sagemath:latest
 WORKDIR /app
 COPY . /app
 RUN sage -python -m pip install --no-cache-dir \
