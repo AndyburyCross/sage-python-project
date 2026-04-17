@@ -1,25 +1,26 @@
 from sage.all import *
-import numpy as np
-import matplotlib
-matplotlib.use("Agg")
+import scipy
 import matplotlib.pyplot as plt
-from scipy.integrate import solve_ivp, odeint
+from scipy.integrate import solve_ivp
+from scipy.integrate import odeint
+import numpy as np
 
-# Sage symbolic maths
-x=var('x')
-print("Integral of sin(x)^2:")
-print(integrate(sin(x)**2,x))
+# a) Define variables used in Inverse Power Law:
 
-#Numerical ODE
-def f(t, y):
-	return -y + sin(t)
+phi = var(r'φ') # scalar field
+k = 1
+#Mpl = 1 # Reduced planck mass units
+alp = var(r'α') # steepness of inverse power law
+alp = 4
+M = var('M') # Mass scale of IPL
+N = var('N') # N units
+beta = var(r'β') # coupling variable
 
-sol = solve_ivp(f, (0,10), [1.0])
+# Expression for V and derivative
+def V(M,phi):
+    return (M**(4+alp))/phi**alp
 
-plt.plot(sol.t, sol.y[0])
-plt.xlabel("t")
-plt.ylabel("y")
-plt.title("ODE solution")
-plt.savefig("output.png")
+def dVdphi(M,phi):
+    return -alp*V(M,phi)/phi
 
-print("Saved plot to output.png")
+show(V(M,phi))
